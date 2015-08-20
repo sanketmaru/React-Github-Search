@@ -9,9 +9,15 @@ var App = React.createClass({
   },
   
   render:function(){
-    return React.createElement('button', {onClick: this.clickHandler}, this.props.msg);          
+  	return (
+  		<div>
+	    	Hello
+	    </div>
+  	)
+    
   }
 
 });
 
+React.render(<App />, document.getElementById("app"));
 module.exports = App;
