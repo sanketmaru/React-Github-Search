@@ -10,14 +10,13 @@ var App = React.createClass({
   
   render:function(){
   	return (
-  		<div>
-	    	Hello
-	    </div>
+  		<h2 className="text-center">
+	    	Search by github username
+	    </h2>
   	)
     
   }
 
 });
 
-React.render(<App />, document.getElementById("app"));
 module.exports = App;
