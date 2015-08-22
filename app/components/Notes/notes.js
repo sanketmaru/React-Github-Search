@@ -4,7 +4,11 @@ var Notes = React.createClass({
 
 	render: function(){
 		return (
-			<div> Notes </div>
+			<div> 
+				<h3> Notes </h3>
+				{this.props.notes} 
+			</div>
+
 		)
 	}
 

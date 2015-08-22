@@ -2,16 +2,59 @@ var React = require('react');
 var Router = require('react-router');
 var Repos = require('./Github/repos');
 var UserProfile = require('./Github/userprofile');
+var Starred = require('./Github/starred');
 var Notes = require('./Notes/notes');
+var ReactFireMixin = require('reactfire');
+var FireBase = require('firebase');
 
 var Profile = React.createClass({
-  mixins: [Router.State],
+  mixins: [Router.State, ReactFireMixin],
   getInitialState: function(){
     return {
-      notes: ['note1', 'note2'],
-      bio: {'name' : 'sanket'},
-      repos: ['repo1', 'repo2']
+      starred: [],
+      bio: {},
+      repos: []
     }
+  },
+  
+  componentDidMount: function(){
+    var username = this.getParams().username;
+    var usersRepoUrl = "https://api.github.com/users/" + username + "/repos";
+    var userprofileUrl = "https://api.github.com/users/" + username;
+    var userStarredUrl = "https://api.github.com/users/" + username +"/starred";
+    
+    $.get(usersRepoUrl, function(result) {
+      
+      if (this.isMounted()) {
+        this.setState({          
+          repos: result
+        });
+      }
+    }.bind(this));    
+
+    $.get(userprofileUrl, function(result) {
+      
+      if (this.isMounted()) {
+        this.setState({          
+          bio: result
+        });
+      }
+    }.bind(this));
+
+    $.get(userStarredUrl, function(result) {
+      
+      if (this.isMounted()) {
+        this.setState({          
+          starred: result
+        });
+      }
+    }.bind(this));
+  },
+
+  componentWillUnmount: function(){
+    this.unbind('starred');
+    this.unbind('bio');
+    this.unbind('repos');
   },
 
   render:function(){
@@ -25,7 +68,7 @@ var Profile = React.createClass({
           <Repos username={username}  repos={this.state.repos} />
         </div>
         <div className="col-md-4">
-          <Notes username={username}  notes={this.state.notes} />
+          <Starred username={username}  starred={this.state.starred} />
         </div>
       </div>
     )
