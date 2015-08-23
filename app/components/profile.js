@@ -4,11 +4,10 @@ var Repos = require('./Github/repos');
 var UserProfile = require('./Github/userprofile');
 var Starred = require('./Github/starred');
 var Notes = require('./Notes/notes');
-var ReactFireMixin = require('reactfire');
-var FireBase = require('firebase');
 
 var Profile = React.createClass({
-  mixins: [Router.State, ReactFireMixin],
+  mixins: [Router.State],
+  
   getInitialState: function(){
     return {
       starred: [],
@@ -17,7 +16,7 @@ var Profile = React.createClass({
     }
   },
   
-  componentDidMount: function(){
+  getGithubInfo: function(){
     var username = this.getParams().username;
     var usersRepoUrl = "https://api.github.com/users/" + username + "/repos";
     var userprofileUrl = "https://api.github.com/users/" + username;
@@ -54,10 +53,12 @@ var Profile = React.createClass({
     }.bind(this));
   },
 
-  componentWillUnmount: function(){
-    this.unbind('starred');
-    this.unbind('bio');
-    this.unbind('repos');
+  componentDidMount: function(){
+    this.getGithubInfo();
+  },
+
+  componentWillReceiveProps: function(){
+    this.getGithubInfo();
   },
 
   render:function(){

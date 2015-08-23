@@ -23549,7 +23549,7 @@
 	var React = __webpack_require__(1);
 	var Home = __webpack_require__(197);
 	var Main = __webpack_require__(198);
-	var Profile = __webpack_require__(199);
+	var Profile = __webpack_require__(200);
 	var Router = __webpack_require__(157);
 	var DefaultRoute = Router.DefaultRoute;
 	var Route = Router.Route;
@@ -23598,7 +23598,7 @@
 
 	var React = __webpack_require__(1);
 	var RouteHandler = __webpack_require__(157).RouteHandler;
-
+	var SearchGithub = __webpack_require__(199);
 	var App = React.createClass({
 	  displayName: 'App',
 
@@ -23616,7 +23616,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'col-sm-7 col-sm-offset-2', style: { marginTop: 15 } },
-	          'Menu'
+	          React.createElement(SearchGithub, null)
 	        )
 	      ),
 	      React.createElement(
@@ -23639,20 +23639,115 @@
 
 	var React = __webpack_require__(1);
 	var Router = __webpack_require__(157);
-	var Repos = __webpack_require__(200);
-	var UserProfile = __webpack_require__(201);
-	var Notes = __webpack_require__(202);
+
+	var SearchGithub = React.createClass({
+	  displayName: 'SearchGithub',
+
+	  mixins: [Router.Navigation],
+
+	  handleSumbmit: function handleSumbmit() {
+	    var username = this.refs.username.getDOMNode().value;
+	    this.refs.username.getDOMNode().value = '';
+	    this.transitionTo('profile', { username: username });
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'col-sm-12' },
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.handleSumbmit },
+	        React.createElement(
+	          'div',
+	          { className: 'form-group col-sm-7' },
+	          React.createElement('input', { type: 'text', className: 'form-control', ref: 'username' })
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'form-group col-sm-5' },
+	          React.createElement(
+	            'button',
+	            { type: 'submit', className: 'btn btn-block btn-primary' },
+	            ' Search Github '
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = SearchGithub;
+
+/***/ },
+/* 200 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var Router = __webpack_require__(157);
+	var Repos = __webpack_require__(201);
+	var UserProfile = __webpack_require__(203);
+	var Starred = __webpack_require__(204);
+	var Notes = __webpack_require__(205);
 
 	var Profile = React.createClass({
 	  displayName: 'Profile',
 
 	  mixins: [Router.State],
+
 	  getInitialState: function getInitialState() {
 	    return {
-	      notes: ['note1', 'note2'],
-	      bio: { 'name': 'sanket' },
-	      repos: ['repo1', 'repo2']
+	      starred: [],
+	      bio: {},
+	      repos: []
 	    };
+	  },
+
+	  getGithubInfo: function getGithubInfo() {
+	    var username = this.getParams().username;
+	    var usersRepoUrl = "https://api.github.com/users/" + username + "/repos";
+	    var userprofileUrl = "https://api.github.com/users/" + username;
+	    var userStarredUrl = "https://api.github.com/users/" + username + "/starred";
+
+	    // refactor this better
+	    $.get(usersRepoUrl, (function (result) {
+
+	      if (this.isMounted()) {
+	        this.setState({
+	          repos: result
+	        });
+	      }
+	    }).bind(this));
+
+	    // refactor this better
+	    $.get(userprofileUrl, (function (result) {
+
+	      if (this.isMounted()) {
+	        this.setState({
+	          bio: result
+	        });
+	      }
+	    }).bind(this));
+
+	    // refactor this better
+	    $.get(userStarredUrl, (function (result) {
+
+	      if (this.isMounted()) {
+	        this.setState({
+	          starred: result
+	        });
+	      }
+	    }).bind(this));
+	  },
+
+	  componentDidMount: function componentDidMount() {
+	    this.getGithubInfo();
+	  },
+
+	  componentWillReceiveProps: function componentWillReceiveProps() {
+	    this.getGithubInfo();
 	  },
 
 	  render: function render() {
@@ -23673,7 +23768,7 @@
 	      React.createElement(
 	        'div',
 	        { className: 'col-md-4' },
-	        React.createElement(Notes, { username: username, notes: this.state.notes })
+	        React.createElement(Starred, { username: username, starred: this.state.starred })
 	      )
 	    );
 	  }
@@ -23683,12 +23778,13 @@
 	module.exports = Profile;
 
 /***/ },
-/* 200 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(1);
+	var StarredList = __webpack_require__(202);
 
 	var Repos = React.createClass({
 		displayName: 'Repos',
@@ -23697,7 +23793,12 @@
 			return React.createElement(
 				'div',
 				null,
-				' REPOS '
+				React.createElement(
+					'h3',
+					null,
+					' REPOS '
+				),
+				React.createElement(StarredList, { starred: this.props.repos })
 			);
 		}
 
@@ -23706,28 +23807,113 @@
 	module.exports = Repos;
 
 /***/ },
-/* 201 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
+
+	var React = __webpack_require__(1);
+
+	var StarredList = React.createClass({
+		displayName: "StarredList",
+
+		render: function render() {
+			var starredList = this.props.starred.map(function (star) {
+				return React.createElement(
+					"li",
+					{ className: "list-group-item" },
+					React.createElement(
+						"p",
+						null,
+						" ",
+						star.name,
+						" "
+					),
+					React.createElement(
+						"p",
+						null,
+						" ",
+						star.html_url,
+						" "
+					)
+				);
+			});
+
+			return React.createElement(
+				"ul",
+				{ className: "list-group" },
+				starredList
+			);
+		}
+
+	});
+
+	module.exports = StarredList;
+
+/***/ },
+/* 203 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
 
 	var React = __webpack_require__(1);
 
 	var UserProfile = React.createClass({
-		displayName: 'UserProfile',
+		displayName: "UserProfile",
 
 		render: function render() {
 			return React.createElement(
-				'div',
+				"div",
 				null,
-				'UserProfile ',
-				React.createElement('br', null),
-				'Username: ',
-				this.props.username,
-				' ',
-				React.createElement('br', null),
-				'Bio: ',
-				this.props.bio
+				React.createElement(
+					"h3",
+					null,
+					" UserProfile "
+				),
+				React.createElement(
+					"ul",
+					{ className: "list-group" },
+					React.createElement(
+						"li",
+						{ className: "list-group-item" },
+						React.createElement("img", { className: "img-item", src: this.props.bio.avatar_url })
+					),
+					React.createElement(
+						"li",
+						{ className: "list-group-item" },
+						React.createElement(
+							"a",
+							{ href: this.props.bio.html_url },
+							" Username: ",
+							this.props.username,
+							" "
+						)
+					),
+					React.createElement(
+						"li",
+						{ className: "list-group-item" },
+						"Following: ",
+						this.props.bio.following
+					),
+					React.createElement(
+						"li",
+						{ className: "list-group-item" },
+						"Followers: ",
+						this.props.bio.followers
+					),
+					React.createElement(
+						"li",
+						{ className: "list-group-item" },
+						"Company: ",
+						this.props.bio.company
+					),
+					React.createElement(
+						"li",
+						{ className: "list-group-item" },
+						"Email: ",
+						this.props.bio.email
+					)
+				)
 			);
 		}
 
@@ -23736,7 +23922,36 @@
 	module.exports = UserProfile;
 
 /***/ },
-/* 202 */
+/* 204 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var StarredList = __webpack_require__(202);
+
+	var Starred = React.createClass({
+		displayName: 'Starred',
+
+		render: function render() {
+			return React.createElement(
+				'div',
+				null,
+				React.createElement(
+					'h3',
+					null,
+					' Starred '
+				),
+				React.createElement(StarredList, { starred: this.props.starred })
+			);
+		}
+
+	});
+
+	module.exports = Starred;
+
+/***/ },
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23750,7 +23965,12 @@
 			return React.createElement(
 				'div',
 				null,
-				' Notes '
+				React.createElement(
+					'h3',
+					null,
+					' Notes '
+				),
+				this.props.notes
 			);
 		}
 
