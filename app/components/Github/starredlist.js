@@ -5,7 +5,7 @@ var StarredList = React.createClass({
 	render: function(){
 		var starredList = this.props.starred.map(function(star){
 			return (
-				<li> 
+				<li className="list-group-item"> 
 					<p> {star.name} </p>
 					<p> {star.html_url} </p>
 				</li>
@@ -13,7 +13,7 @@ var StarredList = React.createClass({
 		});
 
 		return (
-			<ul class="list-inline">
+			<ul className="list-group">
 				{starredList}
 			</ul>
 		)

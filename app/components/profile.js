@@ -23,6 +23,7 @@ var Profile = React.createClass({
     var userprofileUrl = "https://api.github.com/users/" + username;
     var userStarredUrl = "https://api.github.com/users/" + username +"/starred";
     
+    // refactor this better
     $.get(usersRepoUrl, function(result) {
       
       if (this.isMounted()) {
@@ -32,6 +33,7 @@ var Profile = React.createClass({
       }
     }.bind(this));    
 
+    // refactor this better
     $.get(userprofileUrl, function(result) {
       
       if (this.isMounted()) {
@@ -41,6 +43,7 @@ var Profile = React.createClass({
       }
     }.bind(this));
 
+    // refactor this better
     $.get(userStarredUrl, function(result) {
       
       if (this.isMounted()) {
@@ -75,6 +78,5 @@ var Profile = React.createClass({
   }
 
 });
-
 
 module.exports= Profile;
