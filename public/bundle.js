@@ -23876,7 +23876,7 @@
 					React.createElement(
 						"li",
 						{ className: "list-group-item" },
-						React.createElement("img", { className: "img-item", src: this.props.bio.avatar_url })
+						React.createElement("img", { className: "img-thumbnail", src: this.props.bio.avatar_url })
 					),
 					React.createElement(
 						"li",

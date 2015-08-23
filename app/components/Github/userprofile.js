@@ -8,7 +8,7 @@ var UserProfile = React.createClass({
 				<h3> UserProfile </h3>  
 				<ul className = "list-group">
 					<li className="list-group-item">
-						<img className="img-item" src={this.props.bio.avatar_url} />
+						<img className="img-thumbnail" src={this.props.bio.avatar_url} />
 					</li>
 					<li className="list-group-item">
 						<a href={this.props.bio.html_url} > Username: {this.props.username} </a>
