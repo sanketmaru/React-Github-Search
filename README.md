@@ -1,4 +1,4 @@
-# real-time-tracker
+# React-Github-Search
 
 Sample Project that uses ReactJS , NodeJS, Webpack. <br/>
 Search a github username which will fetch public repositories, profile and starred repositories of the particular searched user
