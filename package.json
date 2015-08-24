@@ -13,8 +13,10 @@
   },
   "keywords": [
     "react",
-    "flux",
-    "socket"
+    "node",
+    "nodejs",
+    "webpack",
+    "github"
   ],
   "author": "Sanket Maru",
   "license": "ISC",
