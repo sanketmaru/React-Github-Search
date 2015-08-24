@@ -1,23 +1,19 @@
 var express = require('express');
 var React = require('react');
 var fs = require('fs');
-var Component = React.createFactory(require('./components/home'));
-
-var BUNDLE = fs.readFileSync('./bundle.js', {encoding: 'utf8'});
-var TEMPLATE = fs.readFileSync('./index.html', {encoding: 'utf8'});
+var path = require('path');
+var bodyParser = require('body-parser');
+var logger = require('winston');
 
 var app = express();
 
-function home(req,res){
-	var msg = req.params.msg || 'sa';
-	res.send(React.renderToString(Component({msg:msg})));	
-}
+app.set('port', process.env.PORT || 3000);
+//app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+console.log(__dirname);
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('', home);
-app.get('/bundle.js', function(req,res){
-	res.send(BUNDLE)
+app.listen(app.get('port'), function() {
+  console.log('Express server listening on port ' + app.get('port'));
 });
-
-app.get('/:msg', home);
-
-app.listen(4000);
