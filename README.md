@@ -1,9 +1,14 @@
 # real-time-tracker
-Idea of this repo is to build real time device tracking using
-1. ReactJS + Flux (Start with Web and build an isomorphic app )
-2. Show on google maps the current location of the user
-3. Use Redis
-4. Socket.io for real time updates.
-5. Use React Native ( Last Step )
 
-Real Time Device Tracker
+Sample Project that uses ReactJS , NodeJS, Webpack. <br/>
+Search a github username which will fetch public repositories, profile and starred repositories of the particular searched user
+
+# Usage
+
+1. Install NodeJS, npm
+2. npm install -d
+3. npm install -g webpack
+4. cd projectdir/
+5. webpack -w
+6. open another terminal --> node app.js
+
