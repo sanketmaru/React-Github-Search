@@ -23,7 +23,12 @@ var SearchGithub = React.createClass({
         </form>
       </div>
     )
+  },
+
+  componentDidMount : function(){
+    this.transitionTo('profile', {username: 'sanketmaru'});
   }
+
 });
 
 module.exports = SearchGithub;

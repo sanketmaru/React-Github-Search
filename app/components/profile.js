@@ -3,7 +3,6 @@ var Router = require('react-router');
 var Repos = require('./Github/repos');
 var UserProfile = require('./Github/userprofile');
 var Starred = require('./Github/starred');
-var Notes = require('./Notes/notes');
 
 var Profile = React.createClass({
   mixins: [Router.State],

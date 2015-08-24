@@ -23565,25 +23565,15 @@
 /* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	var React = __webpack_require__(1);
-	//var Login = require('./login');
-	//var SignUp = require('./signup');
 
 	var App = React.createClass({
-	  displayName: "App",
-
-	  clickHandler: function clickHandler() {
-	    console.log(this.props.msg);
-	  },
+	  displayName: 'App',
 
 	  render: function render() {
-	    return React.createElement(
-	      "h2",
-	      { className: "text-center" },
-	      "Search by github username"
-	    );
+	    return false;
 	  }
 
 	});
@@ -23599,12 +23589,9 @@
 	var React = __webpack_require__(1);
 	var RouteHandler = __webpack_require__(157).RouteHandler;
 	var SearchGithub = __webpack_require__(199);
+
 	var App = React.createClass({
 	  displayName: 'App',
-
-	  clickHandler: function clickHandler() {
-	    console.log(this.props.msg);
-	  },
 
 	  render: function render() {
 	    return React.createElement(
@@ -23674,7 +23661,12 @@
 	        )
 	      )
 	    );
+	  },
+
+	  componentDidMount: function componentDidMount() {
+	    this.transitionTo('profile', { username: 'sanketmaru' });
 	  }
+
 	});
 
 	module.exports = SearchGithub;
@@ -23690,7 +23682,6 @@
 	var Repos = __webpack_require__(201);
 	var UserProfile = __webpack_require__(203);
 	var Starred = __webpack_require__(204);
-	var Notes = __webpack_require__(205);
 
 	var Profile = React.createClass({
 	  displayName: 'Profile',
@@ -23949,34 +23940,6 @@
 	});
 
 	module.exports = Starred;
-
-/***/ },
-/* 205 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(1);
-
-	var Notes = React.createClass({
-		displayName: 'Notes',
-
-		render: function render() {
-			return React.createElement(
-				'div',
-				null,
-				React.createElement(
-					'h3',
-					null,
-					' Notes '
-				),
-				this.props.notes
-			);
-		}
-
-	});
-
-	module.exports = Notes;
 
 /***/ }
 /******/ ]);

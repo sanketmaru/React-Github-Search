@@ -1,11 +1,8 @@
 var React = require('react');
 var RouteHandler = require('react-router').RouteHandler;
 var SearchGithub = require('./searchgithub');
+
 var App = React.createClass({
-  
-  clickHandler: function(){
-    console.log(this.props.msg);
-  },
   
   render:function(){
   	return (
