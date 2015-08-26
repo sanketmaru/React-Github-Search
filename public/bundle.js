@@ -23680,8 +23680,8 @@
 	var React = __webpack_require__(1);
 	var Router = __webpack_require__(157);
 	var Repos = __webpack_require__(201);
-	var UserProfile = __webpack_require__(203);
-	var Starred = __webpack_require__(204);
+	var UserProfile = __webpack_require__(204);
+	var Starred = __webpack_require__(205);
 
 	var Profile = React.createClass({
 	  displayName: 'Profile',
@@ -23801,38 +23801,37 @@
 /* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	var React = __webpack_require__(1);
+	var CollapseComponent = __webpack_require__(203);
 
 	var StarredList = React.createClass({
-		displayName: "StarredList",
+		displayName: 'StarredList',
 
 		render: function render() {
-			var starredList = this.props.starred.map(function (star) {
+			var starredList = this.props.starred.map(function (star, i) {
 				return React.createElement(
-					"li",
-					{ className: "list-group-item" },
+					'div',
+					null,
 					React.createElement(
-						"p",
-						null,
-						" ",
-						star.name,
-						" "
+						'div',
+						{ className: 'list-group-item' },
+						React.createElement(
+							'a',
+							{ target: '_blank', href: star.html_url, 'data-toggle': 'collapse' },
+							' ',
+							star.name,
+							' '
+						)
 					),
-					React.createElement(
-						"p",
-						null,
-						" ",
-						star.html_url,
-						" "
-					)
+					React.createElement(CollapseComponent, { targetElement: 'ava', name: 'snaket', age: '24' })
 				);
 			});
 
 			return React.createElement(
-				"ul",
-				{ className: "list-group" },
+				'div',
+				{ className: 'list-group' },
 				starredList
 			);
 		}
@@ -23843,6 +23842,42 @@
 
 /***/ },
 /* 203 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(1);
+
+	var CollapseComponent = React.createClass({
+	  displayName: "CollapseComponent",
+
+	  render: function render() {
+	    return React.createElement(
+	      "div",
+	      { id: this.props.targetElement, className: "collapse" },
+	      React.createElement(
+	        "p",
+	        null,
+	        " ",
+	        this.props.name,
+	        " "
+	      ),
+	      React.createElement(
+	        "p",
+	        null,
+	        " ",
+	        this.props.age,
+	        " "
+	      )
+	    );
+	  }
+
+	});
+
+	module.exports = CollapseComponent;
+
+/***/ },
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -23913,7 +23948,7 @@
 	module.exports = UserProfile;
 
 /***/ },
-/* 204 */
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

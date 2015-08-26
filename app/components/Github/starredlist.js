@@ -8,7 +8,7 @@ var StarredList = React.createClass({
 			return (				
 				<div>
 					<div className="list-group-item"> 
-						<a href="#ava" data-toggle="collapse"> {star.name} </a>
+						<a target="_blank" href={star.html_url} data-toggle="collapse"> {star.name} </a>
 					</div>
 					<CollapseComponent targetElement={'ava'} name={'snaket'} age={'24'} />
 				</div>				
