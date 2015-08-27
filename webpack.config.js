@@ -1,4 +1,5 @@
 var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
   context: __dirname + "/app",
@@ -13,5 +14,8 @@ module.exports = {
       exclude: /(node_modules)/,
       loader:'babel'
     }]
-  }
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ]
 };
