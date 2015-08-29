@@ -27,6 +27,7 @@
     "body-parser": "~1.13.3",
     "d3": "^3.5.6",
     "express": "~4.13.3",
+    "fluxxor": "^1.7.1",
     "jquery": "^2.1.4",
     "react": "~0.13.3",
     "react-router": "^0.13.3",
