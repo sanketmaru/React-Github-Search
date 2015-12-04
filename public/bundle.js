@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "65705c438addafa16743"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "15264a7044288f6b08fa"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -24051,7 +24051,6 @@
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var Home = __webpack_require__(197);
 	var Main = __webpack_require__(198);
 	var Profile = __webpack_require__(200);
 	var Router = __webpack_require__(157);
@@ -24061,30 +24060,11 @@
 	module.exports = React.createElement(
 		Route,
 		{ name: 'app', path: '/', handler: Main },
-		React.createElement(Route, { name: 'profile', path: 'profile/:username', handler: Profile }),
-		React.createElement(DefaultRoute, { handler: Home })
+		React.createElement(Route, { name: 'profile', path: 'profile/:username', handler: Profile })
 	);
 
 /***/ },
-/* 197 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(1);
-
-	var App = React.createClass({
-	  displayName: 'App',
-
-	  render: function render() {
-	    return false;
-	  }
-
-	});
-
-	module.exports = App;
-
-/***/ },
+/* 197 */,
 /* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -24101,6 +24081,33 @@
 	    return React.createElement(
 	      'div',
 	      { className: 'main-container' },
+	      React.createElement(
+	        'nav',
+	        null,
+	        React.createElement(
+	          'a',
+	          { href: '/html/' },
+	          'Facebook'
+	        ),
+	        ' |',
+	        React.createElement(
+	          'a',
+	          { href: '/css/' },
+	          'LinkedIn'
+	        ),
+	        ' |',
+	        React.createElement(
+	          'a',
+	          { href: '/js/' },
+	          'Github'
+	        ),
+	        ' |',
+	        React.createElement(
+	          'a',
+	          { href: '/jquery/' },
+	          'Stackoverflow'
+	        )
+	      ),
 	      React.createElement(
 	        'nav',
 	        { className: 'navbar navbar-default', role: 'navigation' },
@@ -24332,7 +24339,7 @@
 								{ 'class': 'panel-title' },
 								React.createElement(
 									'a',
-									{ onClick: this.handleClick, href: hrefId, 'data-toggle': 'collapse' },
+									{ href: hrefId, 'data-toggle': 'collapse' },
 									' ',
 									star.name,
 									' '

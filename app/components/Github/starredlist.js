@@ -13,7 +13,7 @@ var StarredList = React.createClass({
 					<div className="panel panel-default"> 
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a onClick={this.handleClick} href={hrefId} data-toggle="collapse"> {star.name} </a>
+                <a href={hrefId} data-toggle="collapse"> {star.name} </a>
               </h4>
             </div>
             <CollapseComponent targetElement={collapseId} name={'snaket'} age={'24'} />
